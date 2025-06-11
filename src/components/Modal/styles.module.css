@@ -1,0 +1,50 @@
+.modal__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal__wrapper {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    min-width: 300px;
+    max-width: 80%;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease-out;
+}
+
+.modal__overlay.show {
+    opacity: 1;
+    pointer-events: unset;
+
+    .modal__wrapper {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal__closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.modal__content {
+    margin-top: 2rem;
+}

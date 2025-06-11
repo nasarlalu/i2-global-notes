@@ -2,7 +2,6 @@ import { NextResponse } from "next/server"
 import { connectToDb } from "@/lib/mongodb"
 import { Notes } from "@/lib/model/notes"
 import jwt from "jsonwebtoken"
-import { ObjectId } from "mongodb"
 
 async function verifyToken(request) {
 
@@ -12,6 +11,7 @@ async function verifyToken(request) {
     }
     const token = authHeader.substring(7)
     const decoded = jwt.verify(token, process.env.JWT_SECRET || "fallback-secret")
+    console.log(decoded, "decoded from verifyToken")
     return decoded
 }
 
@@ -43,7 +43,6 @@ export const DELETE = async (request) => {
         return NextResponse.json({ status: 500, body: { message: 'Failed to delete Notes' } })
     }
 };
-
 
 export const PUT = async (request) => {
     try {
@@ -81,20 +80,46 @@ export const PUT = async (request) => {
         throw new Error(err, "Failed to create a new post!");
     }
 };
-export async function POST(request) {
+
+export const POST = async (request) => {
     try {
-        connectToDb()
-        const decoded = await verifyToken(request)
-        const { title, content } = await request.json()
+        await connectToDb();
+        const decoded = await verifyToken(request);
 
-        if (!title || !content) {
-            return NextResponse.json({ message: "Title and content are required" }, { status: 400 })
+        const { title, content, desc, slug } = await request.json();
+        if (!title?.trim() || !content?.trim()) {
+            return NextResponse.json(
+                { message: "Title and content are required" },
+                { status: 400 }
+            );
         }
-        const createdNote = await Notes.findOne({ _id: result.insertedId })
 
-        return NextResponse.json(createdNote)
+        // Create new note
+        const newNote = new Notes({
+            title: title.trim(),
+            content: content.trim(),
+            userId: decoded.userId,
+            desc: desc.trim(),
+            slug: slug.trim(),
+        });
+
+        const savedNote = await newNote.save();
+
+        return NextResponse.json(savedNote, { status: 201 });
+
     } catch (error) {
-        console.error("Create note error:", error)
-        return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
+        console.error("Create note error:", error.message);
+
+        return NextResponse.json(
+            {
+                message: error.message.includes("token")
+                    ? error.message
+                    : "Failed to create note"
+            },
+            {
+                status: error.message.includes("token") ? 401 : 500
+            }
+        );
     }
 }
+

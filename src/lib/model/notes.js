@@ -6,11 +6,11 @@ const noteSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        desc: {
+        content: {
             type: String,
             required: true,
         },
-        content: {
+        desc: {
             type: String,
             required: true,
         },
