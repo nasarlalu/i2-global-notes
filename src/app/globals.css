@@ -5,9 +5,11 @@
 }
 
 html,
-body {
+body,
+button {
   font-family: var(--font-geist-mono);
 }
+
 
 a {
   color: inherit;

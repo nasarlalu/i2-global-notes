@@ -1,9 +1,18 @@
 "use client";
-import React, { useState, useEffect, use } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUserData } from '@/redux/authSlice';
+import { useRouter } from "next/navigation"
+import { useAxios } from "@/hooks/useAxios"
 
 export default function signIn() {
 
+  const dispatch = useDispatch();
+  const router = useRouter()
+
+  const { request, response, loading, error } = useAxios()
+  
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -14,6 +23,8 @@ export default function signIn() {
     error: null,
     success: null
   });
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -23,6 +34,7 @@ export default function signIn() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setFormStatus({ loading: true, error: null, success: null });
 
     try {
@@ -38,9 +50,16 @@ export default function signIn() {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Login failed');
       }
-
       const data = await response.json();
+
+      const reduxPayload = {
+        token: data?.data?.token,
+        username: data?.data?.username,
+        email: data?.data?.email
+      }
+      dispatch(setUserData(reduxPayload));
       setFormStatus({ loading: false, success: data.message, error: null });
+      router.push("/")
     } catch (error) {
       setFormStatus({ loading: false, error: error.message, success: null });
     }
@@ -60,6 +79,7 @@ export default function signIn() {
   useEffect(() => {
     setFormStatus({ loading: false, error: null, success: null });
   }, []);
+
 
   return (
     <section className='auth__section'>

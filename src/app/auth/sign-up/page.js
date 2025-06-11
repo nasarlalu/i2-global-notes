@@ -1,8 +1,12 @@
 "use client";
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from "next/navigation"
+
 
 export default function signUp() {
+
+  const router = useRouter()
 
   const [formData, setFormData] = useState({
     email: '',
@@ -42,6 +46,7 @@ export default function signUp() {
 
       const data = await response.json();
       setFormStatus({ loading: false, success: data.message, error: null });
+      router.push("/auth/sign-in")
     } catch (error) {
       setFormStatus({ loading: false, error: error.message, success: null });
     }

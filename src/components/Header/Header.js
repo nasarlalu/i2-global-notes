@@ -1,8 +1,27 @@
+"use client"
+import React, { useState, useEffect } from 'react'
 import styles from './styles.module.css'
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSelector, useDispatch } from 'react-redux'
+import { removeUserdata } from '@/redux/authSlice';
+
 
 export default function Header() {
+
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+
+    const user = useSelector((state) => state?.auth?.userData?.username);
+    const dispatch = useDispatch()
+
+    const handleLogout = () => {
+        dispatch(removeUserdata())
+    }
+
     return (
         <header className={styles.header__section}>
             <div className='container'>
@@ -15,13 +34,17 @@ export default function Header() {
                     <nav className={styles.header__nav}>
                         <ul className={styles.nav__list}>
                             <li className={styles.nav__item}><Link href="/">Home</Link></li>
-                            <li className={styles.nav__item}><Link href="/about">About</Link></li>
+                            <li className={styles.nav__item}><Link href="/notes">Notes</Link></li>
                             <li className={styles.nav__item}><Link href="/account">Account</Link></li>
                         </ul>
                     </nav>
                     <div className={styles.auth__btns}>
-                        <Link href="/sign-in" className={styles.header__btn + ' ' + styles.signIn}>Sign In</Link>
-                        <Link href="/sign-up" className={styles.header__btn + ' ' + styles.signUp}>Sign Up</Link>
+                        {isClient && (user ? <button className={styles.logout__btn} onClick={handleLogout}>Logut</button> :
+                            <React.Fragment>
+                                <Link href="/auth/sign-in">Sign In</Link>
+                                <Link href="/auth/sign-up">Sign Up</Link>
+                            </React.Fragment>
+                        )}
                     </div>
                 </div>
             </div>

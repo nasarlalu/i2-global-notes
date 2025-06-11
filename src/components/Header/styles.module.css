@@ -14,6 +14,7 @@
 .nav__list {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 1rem;
 }
 
@@ -24,5 +25,17 @@
 .auth__btns {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     gap: 1rem;
+}
+
+.logout__btn {
+    font-size: .9rem;
+    font-weight: 500;
+    padding: .5rem 1rem;
+    color: #222;
+    background-color: #fff;
+    border: unset;
+    border-radius: 1rem;
+    text-transform: uppercase;
 }
