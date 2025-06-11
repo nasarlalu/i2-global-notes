@@ -1,0 +1,28 @@
+.header__section {
+    background-color: #222;
+    padding: 1rem 0;
+    color: #fff;
+}
+
+.header__wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    gap: 3rem;
+}
+
+.nav__list {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav__item {
+    list-style: none;
+}
+
+.auth__btns {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
