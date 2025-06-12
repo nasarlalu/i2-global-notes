@@ -4,6 +4,14 @@ export function middleware(request) {
     const token = request.cookies.get('token')?.value;
     const { pathname } = request.nextUrl;
 
+    // Skip API routes and static files
+    if (pathname.startsWith('/api') ||
+        pathname.startsWith('/_next') ||
+        pathname.includes('.')) {
+        return NextResponse.next();
+    }
+
+
     const publicRoutes = ['/auth/sign-in', '/auth/sign-up'];
 
     if (token && publicRoutes.includes(pathname)) {
