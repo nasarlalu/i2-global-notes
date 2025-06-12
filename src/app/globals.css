@@ -113,6 +113,10 @@ a {
   color: #fff;
 }
 
+.auth__error{
+  color: #b82929;
+}
+
 .auth__btnWrapper {
   display: flex;
   align-items: center;

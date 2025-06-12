@@ -93,6 +93,7 @@ export default function notesAction() {
 
   useEffect(() => {
     async function fetchNotes() {
+      setFormStatus({ loading: true, error: null, success: null });
       try {
         const response = (await axios.get(`/api/notes/${notesSlug}`)).data;
         setNoteData({
@@ -103,14 +104,16 @@ export default function notesAction() {
           title: response?.title,
           noteId: response?._id
         })
+        setFormStatus({ loading: false, error: null, success: "fetching Note sucess" });
       } catch (error) {
         console.error(error, "error");
+        setFormStatus({ loading: false, error: "Error while fetching Note", success: null });
       }
     }
     fetchNotes()
   }, [])
 
-  if (!formStatus.loading && !noteData.title) return <div><h1>No Notes Found</h1></div>;
+  if (formStatus.loading) return <div><h1>Loading...</h1></div>
 
   return (
     <section className='auth__section'>
@@ -119,7 +122,6 @@ export default function notesAction() {
         <form className='auth__form' onSubmit={handleSubmit}>
 
           {formStatus.error && <p className='auth__error'>{formStatus.error}</p>}
-          {formStatus.success && <p className='auth__success'>{formStatus.success}</p>}
 
           <div className='auth__form-group'>
             <label>Title</label>
