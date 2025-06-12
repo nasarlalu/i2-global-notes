@@ -35,7 +35,7 @@ export default function Header() {
                         <ul className={styles.nav__list}>
                             <li className={styles.nav__item}><Link href="/">Home</Link></li>
                             <li className={styles.nav__item}><Link href="/notes">Notes</Link></li>
-                            <li className={styles.nav__item}><Link href="/account">Account</Link></li>
+                            {/* <li className={styles.nav__item}><Link href="/account">Account</Link></li> */}
                         </ul>
                     </nav>
                     <div className={styles.auth__btns}>

@@ -1,0 +1,23 @@
+.home__section {
+    padding: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    background-color: #eee;
+    width: 50%;
+    margin: 3rem auto;
+    border-radius: 2rem;
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    p {
+        font-size: 1rem;
+        font-weight: 400;
+        margin-bottom: 1rem;
+    }
+}

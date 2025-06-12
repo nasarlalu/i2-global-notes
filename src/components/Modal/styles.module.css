@@ -15,13 +15,13 @@
 
 .modal__wrapper {
     background-color: white;
-    border-radius: 8px;
-    padding: 20px;
-    min-width: 300px;
+    border-radius: .5rem;
+    padding: 2rem;
+    min-width: 40%;
     max-width: 80%;
     position: relative;
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(1.5rem);
     transition: all 0.3s ease-out;
 }
 
@@ -35,14 +35,28 @@
     }
 }
 
+.modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal__headerTitle {
+    font-size: 1.25rem;
+    font-weight: 500;
+    text-transform: uppercase;
+
+}
+
 .modal__closeButton {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
+    border: unset;
+    background-color: unset;
     cursor: pointer;
+
+    svg {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
 }
 
 .modal__content {

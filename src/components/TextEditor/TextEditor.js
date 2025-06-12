@@ -1,36 +1,21 @@
 'use client';
-import { useMemo, forwardRef } from 'react';
+import React from 'react'
 import dynamic from 'next/dynamic';
+import 'react-quill-new/dist/quill.snow.css';
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
-const ReactQuill = dynamic(() => import('react-quill'), {
-  ssr: false,
-  loading: () => <p>Loading editor...</p>,
-});
-
-import 'react-quill/dist/quill.snow.css';
-
-const TextEditor = forwardRef(({ value, onChange, placeholder }, ref) => {
-  const modules = useMemo(() => ({
-    toolbar: [
-      [{ 'header': [1, 2, 3, false] }],
-      ['bold', 'italic', 'underline', 'strike'],
-      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-      ['link', 'image'],
-      ['clean']
-    ],
-  }), []);
+const QuillEditorLatest = ({ value, onChange, placeholder = "Write something...", required = true }) => {
 
   return (
-    <ReactQuill
-      ref={ref}
-      theme="snow"
-      value={value}
-      onChange={onChange}
-      modules={modules}
-      placeholder={placeholder}
-    />
+    <React.Fragment>
+      <ReactQuill
+        theme="snow"
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+      />
+    </React.Fragment>
   );
-});
+};
 
-TextEditor.displayName = 'TextEditor';
-export default TextEditor;
+export default QuillEditorLatest;

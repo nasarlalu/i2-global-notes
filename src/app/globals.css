@@ -108,9 +108,26 @@ a {
   }
 }
 
+.auth__submit--delete {
+  background-color: #b82929;
+  color: #fff;
+}
+
+.auth__btnWrapper {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
 .auth__footer {
   font-size: .8rem;
   margin-top: 2rem;
   text-decoration: underline;
   display: block;
+}
+
+.auth__spanInfo{
+  font-size: .7rem;
+  font-weight: 400;
+  text-transform: uppercase;
 }

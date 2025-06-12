@@ -38,4 +38,5 @@
     border: unset;
     border-radius: 1rem;
     text-transform: uppercase;
+    cursor: pointer;
 }

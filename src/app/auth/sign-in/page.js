@@ -11,8 +11,6 @@ export default function signIn() {
   const dispatch = useDispatch();
   const router = useRouter()
 
-  const { request, response, loading, error } = useAxios()
-  
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -51,15 +49,16 @@ export default function signIn() {
         throw new Error(errorData.message || 'Login failed');
       }
       const data = await response.json();
-
+      console.log(data, "data")
       const reduxPayload = {
+        userId: data?.data?.userId,
         token: data?.data?.token,
         username: data?.data?.username,
         email: data?.data?.email
       }
       dispatch(setUserData(reduxPayload));
       setFormStatus({ loading: false, success: data.message, error: null });
-      router.push("/")
+      router.push("/notes")
     } catch (error) {
       setFormStatus({ loading: false, error: error.message, success: null });
     }

@@ -26,61 +26,6 @@ export const GET = async () => {
     }
 };
 
-export const DELETE = async (request) => {
-    const body = await request.json();
-    const { notes_id } = body
-    console.log(notes_id, 'notes_id');
-    try {
-        connectToDb();
-        const notes = await Notes.findById(notes_id);
-        if (!notes) {
-            return NextResponse.json({ status: 404, body: { message: 'Notes not found' } })
-        }
-        await notes.deleteOne();
-        return NextResponse.json({ status: 200, body: { message: 'Notes deleted successfully' } })
-    } catch (error) {
-        console.error(error);
-        return NextResponse.json({ status: 500, body: { message: 'Failed to delete Notes' } })
-    }
-};
-
-export const PUT = async (request) => {
-    try {
-        await connectToDb();
-
-        const formData = await request.formData();
-        const body = await formData.get("data");
-        const {
-            title,
-            desc,
-            content,
-            createdAt,
-            updatedAt,
-            userId,
-            notesId,
-            slug, } = JSON.parse(body);
-        const existingPost = await Notes.findById(notesId);
-
-        if (!existingPost) {
-            return new NextResponse('Blog not found', { status: 404 });
-        }
-
-        const updatedPost = await Notes.findByIdAndUpdate(notesId, {
-            title,
-            desc,
-            content,
-            createdAt,
-            updatedAt,
-        }, { new: true });
-
-        return NextResponse.json({ status: 200, body: { message: 'Post Updated successfully' } })
-    }
-    catch (err) {
-        console.error(err);
-        throw new Error(err, "Failed to create a new post!");
-    }
-};
-
 export const POST = async (request) => {
     try {
         await connectToDb();
