@@ -6,6 +6,7 @@ import { setUserData } from '@/redux/authSlice';
 import { useRouter, usePathname } from "next/navigation"
 import axios from 'axios';
 import QuillEditorLatest from "@/components/TextEditor/TextEditor"
+import Loader from '@/components/loader'
 
 
 export default function notesAction() {
@@ -113,10 +114,10 @@ export default function notesAction() {
     fetchNotes()
   }, [])
 
-  if (formStatus.loading) return <div><h1>Loading...</h1></div>
+  if (formStatus.loading) return <Loader />
 
   return (
-    <section className='auth__section'>
+    <section className='auth__section' style={{margin: "2.5rem 0"}}>
       <div className='auth__container'>
         <h1 className='auth__title'>Edit your Notes</h1>
         <form className='auth__form' onSubmit={handleSubmit}>

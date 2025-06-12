@@ -15,7 +15,7 @@ export const GET = async (request, { params }) => {
 };
 
 export const DELETE = async (request, { params }) => {
-    const { slug } = params;
+    const { slug } = await params;
 
     try {
         await connectToDb();

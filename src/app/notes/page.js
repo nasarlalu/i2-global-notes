@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { normalizeDate } from "@/utils/normalizedate"
 import { useRouter } from 'next/navigation'
 import QuillEditorLatest from "@/components/TextEditor/TextEditor"
+import Loader from '@/components/loader'
 
 export default function notes() {
 
@@ -132,11 +133,11 @@ export default function notes() {
     }, []);
 
 
-
-
-
+    if (formStatus.loading) return <Loader />
+    
     return (
         <section className={styles.notes__section}>
+
             <div className='container'>
                 <div className={styles.notes__wrapper}>
                     <div className={styles.notes__header}>
