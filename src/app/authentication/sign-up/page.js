@@ -19,6 +19,7 @@ export default function signUp() {
     error: null,
     success: null
   });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -41,16 +42,19 @@ export default function signUp() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Login failed');
+        throw new Error(errorData.error || 'Login failed');
       }
 
       const data = await response.json();
       setFormStatus({ loading: false, success: data.message, error: null });
-      router.push("/authentication/sign-in")
+      setTimeout(() => {
+        router.push("/authentication/sign-in")
+      }, 1000)
     } catch (error) {
       setFormStatus({ loading: false, error: error.message, success: null });
     }
   };
+
   useEffect(() => {
     if (formStatus.success) {
       console.log('Login successful:', formStatus.success);
@@ -93,7 +97,7 @@ export default function signUp() {
 
           <button type='submit' className='auth__submit'>Log In</button>
         </form>
-        <Link className='auth__footer' href='/sign-in'>Already have an account? Sign In</Link>
+        <Link className='auth__footer' href='/authentication/sign-in'>Already have an account? Sign In</Link>
 
       </div>
     </section>

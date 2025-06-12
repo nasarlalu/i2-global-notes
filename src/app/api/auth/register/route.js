@@ -12,7 +12,7 @@ export async function POST(request) {
         const user = await User.findOne({ email })
 
         if (user) {
-            return NextResponse.json({ error: "User already exists" }, { status: 400 })
+            return NextResponse.json({ error: "User already exists, Try different email id" }, { status: 400 })
         }
 
         const salt = await bcryptjs.genSalt(10)

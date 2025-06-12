@@ -111,13 +111,26 @@ export default function notes() {
 
     useEffect(() => {
         async function fetchNotes() {
+            setFormStatus({
+                loading: true,
+                error: 'Failed to fetch note',
+                success: null
+            });
             try {
                 const res = await axios.get('/api/notes', notesData);
-                console.log(res.data, "notesdata")
                 setNotesDataList(res?.data)
+                setFormStatus({
+                    loading: false,
+                    error: null,
+                    success: "fetch note success"
+                });
             } catch (error) {
                 console.error(error, "error");
-
+                setFormStatus({
+                    loading: false,
+                    error: null,
+                    success: "fetch note failed"
+                });
             }
         }
         fetchNotes()
@@ -134,7 +147,7 @@ export default function notes() {
 
 
     if (formStatus.loading) return <Loader />
-    
+
     return (
         <section className={styles.notes__section}>
 

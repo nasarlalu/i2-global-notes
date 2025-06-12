@@ -101,7 +101,7 @@ export default function signIn() {
 
           <button type='submit' className='auth__submit'>Log In</button>
         </form>
-        <Link className='auth__footer' href='/sign-up'>Don't have an account? Sign Up</Link>
+        <Link className='auth__footer' href='/authentication/sign-up'>Don't have an account? Sign Up</Link>
 
       </div>
     </section>

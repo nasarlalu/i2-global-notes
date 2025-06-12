@@ -5,10 +5,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux'
 import { removeUserdata } from '@/redux/authSlice';
-
+import { useRouter } from "next/navigation"
 
 export default function Header() {
 
+    const router = useRouter()
     const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
@@ -20,6 +21,7 @@ export default function Header() {
 
     const handleLogout = () => {
         dispatch(removeUserdata())
+        router.push("/authentication/sign-in")
     }
 
     return (
@@ -28,7 +30,7 @@ export default function Header() {
                 <div className={styles.header__wrapper}>
                     <div className={styles.header__logo}>
                         <Link href="/">
-                            <Image src="/vercel.svg" alt="Logo" width={50} height={50} />
+                            <Image src="/window.svg" alt="Logo" width={50} height={50} />
                         </Link>
                     </div>
                     <nav className={styles.header__nav}>
