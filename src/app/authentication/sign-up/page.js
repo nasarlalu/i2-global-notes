@@ -46,7 +46,7 @@ export default function signUp() {
 
       const data = await response.json();
       setFormStatus({ loading: false, success: data.message, error: null });
-      router.push("/auth/sign-in")
+      router.push("/authentication/sign-in")
     } catch (error) {
       setFormStatus({ loading: false, error: error.message, success: null });
     }

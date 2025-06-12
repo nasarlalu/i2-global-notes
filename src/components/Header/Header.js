@@ -41,8 +41,8 @@ export default function Header() {
                     <div className={styles.auth__btns}>
                         {isClient && (user ? <button className={styles.logout__btn} onClick={handleLogout}>Logut</button> :
                             <React.Fragment>
-                                <Link href="/auth/sign-in">Sign In</Link>
-                                <Link href="/auth/sign-up">Sign Up</Link>
+                                <Link href="/authentication/sign-in">Sign In</Link>
+                                <Link href="/authentication/sign-up">Sign Up</Link>
                             </React.Fragment>
                         )}
                     </div>

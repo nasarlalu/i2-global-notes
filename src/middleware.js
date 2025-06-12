@@ -12,7 +12,7 @@ export function middleware(request) {
     }
 
 
-    const publicRoutes = ['/auth/sign-in', '/auth/sign-up'];
+    const publicRoutes = ['/authentication/sign-in', '/authentication/sign-up'];
 
     if (token && publicRoutes.includes(pathname)) {
         if (pathname !== '/notes') {
@@ -21,8 +21,8 @@ export function middleware(request) {
     }
 
     if (!token && pathname.startsWith('/notes')) {
-        console.log('No token found, redirecting to /auth/sign-in');
-        return NextResponse.redirect(new URL('/auth/sign-in', request.url));
+        console.log('No token found, redirecting to /authentication/sign-in');
+        return NextResponse.redirect(new URL('/authentication/sign-in', request.url));
     }
 
     return NextResponse.next();
@@ -31,8 +31,8 @@ export function middleware(request) {
 export const config = {
     matcher: [
         '/',
-        '/auth/sign-in',
-        '/auth/sign-up',
+        '/authentication/sign-in',
+        '/authentication/sign-up',
         '/notes/:path*',
     ],
 };
