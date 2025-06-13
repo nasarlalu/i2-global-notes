@@ -15,10 +15,13 @@ async function verifyToken(request) {
     return decoded
 }
 
-export const GET = async () => {
+export const GET = async (request) => {
     try {
         await connectToDb();
-        const notes = await Notes.find();
+
+        const { searchParams } = new URL(request.url);
+        const userId = searchParams.get("userId");
+        const notes = await Notes.find({ userId });
         return NextResponse.json(notes);
     } catch (err) {
         console.error(err);

@@ -117,7 +117,7 @@ export default function notes() {
                 success: null
             });
             try {
-                const res = await axios.get('/api/notes', notesData);
+                const res = await axios.get(`/api/notes?userId=${notesData.userId}`);
                 setNotesDataList(res?.data)
                 setFormStatus({
                     loading: false,
