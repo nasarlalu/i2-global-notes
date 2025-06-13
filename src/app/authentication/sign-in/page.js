@@ -1,10 +1,9 @@
 "use client";
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setUserData } from '@/redux/authSlice';
 import { useRouter } from "next/navigation"
-import { useAxios } from "@/hooks/useAxios"
 
 export default function signIn() {
 

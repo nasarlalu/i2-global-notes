@@ -19,7 +19,7 @@ export async function POST(request) {
         const user = await User.findOne({ email }).select("+password");
         if (!user) {
             return NextResponse.json(
-                { message: "Invalid credentials" },
+                { message: "No user found" },
                 { status: 401 }
             );
         }
@@ -34,7 +34,7 @@ export async function POST(request) {
 
         const token = jwt.sign(
             { userId: user._id, email },
-            process.env.JWT_SECRET || "fallback-secret",
+            process.env.JWT_SECRET,
             { expiresIn: "7d" }
         );
 

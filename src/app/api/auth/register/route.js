@@ -15,13 +15,10 @@ export async function POST(request) {
             return NextResponse.json({ error: "User already exists, Try different email id" }, { status: 400 })
         }
 
-        const salt = await bcryptjs.genSalt(10)
-        const hashedPassword = await bcryptjs.hash(password, salt)
-
         const newUser = new User({
             username,
             email,
-            password: hashedPassword
+            password
         })
 
         const savedUser = await newUser.save()
